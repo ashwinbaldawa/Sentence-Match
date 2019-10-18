@@ -1,0 +1,18 @@
+from sklearn.datasets import load_iris
+from sklearn.cluster import KMeans
+from sklearn.metrics import silhouette_score
+
+iris = load_iris()
+X = iris.data
+
+sil_score_max = -1 #this is the minimum possible score
+
+for n_clusters in range(2,10):
+  model = KMeans(n_clusters = n_clusters, init='k-means++', max_iter=100, n_init=1)
+  labels = model.fit_predict(X)
+  sil_score = silhouette_score(X, labels)
+  print("The average silhouette score for %i clusters is %0.2f" %(n_clusters,sil_score))
+  if sil_score > sil_score_max:
+    sil_score_max = sil_score
+    best_n_clusters = n_clusters  
+    print(best_n_clusters)
