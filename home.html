@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>Match Finder</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+* {box-sizing: border-box}
+
+/* Set height of body and the document to 100% */
+body, html {
+  height: 100%;
+  margin: 0;
+  background-color: #40E0D0;
+  font-family: Arial;
+}
+
+/* Style tab links */
+.tablink {
+  color: Black;
+  font-size: 20px;
+  background-color: Transparent;
+  background-repeat:no-repeat;
+  border: none;
+  cursor:pointer;
+  overflow: hidden;
+  outline:none;
+  padding: 20px;
+  float : right;
+}
+
+.tablink:hover {
+  color: White;
+  border-bottom: 1px solid black;
+}
+
+/* Style the tab content (and add height:100% for full page content) */
+.tabcontent {
+  color: black;
+  display: none;
+  padding: 100px 20px;
+  height: 100%;
+}
+
+#parameters {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#parameters td, #parameters th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#parameters tr:nth-child(even){background-color: #f2f2f2;}
+
+#parameters tr:hover {background-color: #ddd;}
+
+#parameters p {
+  color: White;
+}
+
+#parameters th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #fdfefe  ;
+  color: Black;
+}
+
+#Matcher {background-color: #40E0D0;}
+#Statistics {background-color: #40E0D0;}
+#Graphs {background-color: #40E0D0;}
+#About {background-color: #40E0D0;}
+
+</style>
+</head>
+
+<body>
+
+<button class="tablink" onclick="openPage('About', this)">About</button>
+<button class="tablink" onclick="openPage('Graphs', this)">Graphs</button>
+<button class="tablink" onclick="openPage('Statistics', this)" >Statistics</button>
+<button class="tablink" onclick="openPage('Matcher', this)" id="defaultOpen">Matcher</button>
+
+<div id="Matcher" class="tabcontent">
+	<form action = "/success" method = "post" enctype="multipart/form-data">
+
+    <p style="font-weight: bold;font-size:20px;color: Black;">Upload File<br></p>
+     <input type="file" name="file" ondragover=""id="file" multiple size="50" onchange="myFunction()" style="color:White ; font-size: 14px;";>
+    </p>
+
+    <h3 style="color:Black;">Match Percent </h3>
+
+		<input type="range" name="amountRange" min="0" max="100" value="0" oninput="this.form.amountInput.value=this.value" />
+      <br>
+		<input type="number" name="amountInput" min="0" max="100" value="0" oninput="this.form.amountRange.value=this.value" />
+	  <br>
+
+    <input type="submit" value="Upload" style="background-color: Black;
+    font-size: 16px;
+    display: inline-block;
+    border-radius: 15px;
+    font-size: 15px;
+    text-decoration:none;
+    color:White;
+    border:Black 1px solid;
+    padding:4px 12px;
+    border-radius:10px;
+    margin-top:20px;
+    align:right;">
+    </form>
+
+    <form>
+    <input type="button" value="Go Back!" onclick="history.back()" style="background-color: Black;
+    font-size: 16px;
+    display: inline-block;
+    border-radius: 15px;
+    font-size: 15px;
+    text-decoration:none;
+    color:White;
+    border:Black 1px solid;
+    padding:4px 12px;
+    border-radius:10px;
+    margin-top:20px;
+    align:right;">
+    </form>
+</div>
+
+<div id="Statistics" class="tabcontent">
+
+  <table id="parameters">
+  <tr>
+    <th>Parameter</th>
+    <th>Value</th>
+  </tr>
+  <tr>
+    <td>Number of TC's Matched</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Most Matched Word</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Field 4</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Field 5</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Field 6</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Field 7</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Field 8</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Field 9</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Field 10</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Field 11</td>
+    <td></td>
+  </tr>
+</table>
+
+</div>
+
+<div id="Graphs" class="tabcontent">
+  <h3></h3>
+  <p></p>
+</div>
+
+<div id="About" class="tabcontent">
+  <h3>About</h3>
+  <p>This tool is a test case optimizer used to remove the duplicate test cases from the exiting test scenarioa
+  in an Application</p>
+</div>
+
+<script>
+function openPage(pageName,elmnt,color) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].style.backgroundColor = "";
+  }
+  document.getElementById(pageName).style.display = "block";
+  elmnt.style.backgroundColor = color;
+}
+
+function myFunction(){
+    var x = document.getElementById("myFile");
+    var txt = "";
+    if ('files' in x) {
+        if (x.files.length == 0) {
+            txt = "Select one or more files.";
+        } else {
+            for (var i = 0; i < x.files.length; i++) {
+                txt += (i+1) + ". file";
+                var file = x.files[i];
+                if ('name' in file) {
+                    txt += "name: " + file.name + " ";
+                }
+                if ('size' in file) {
+                    txt += "size: " + file.size + " bytes ";
+                }
+            }
+        }
+    }
+    else {
+        if (x.value == "") {
+            txt += "Select one or more files.";
+        } else {
+            txt += "The files property is not supported by your browser!";
+            txt  += "The path of the selected file: " + x.value; // If the browser does not support the files property, it will return the path of the selected file instead.
+        }
+    }
+    document.getElementById("demo").innerHTML = txt;
+}
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+</script>
+
+</body>
+</html>
